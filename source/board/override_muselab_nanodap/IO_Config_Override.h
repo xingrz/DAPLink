@@ -1,6 +1,6 @@
 /**
- * @file    IO_Config.h
- * @brief
+ * @file    IO_Config_Override.c
+ * @brief   Alternative IO for STM32F103XB based Hardware Interface Circuit
  *
  * DAPLink Interface Firmware
  * Copyright (c) 2009-2016, ARM Limited, All Rights Reserved
@@ -19,14 +19,6 @@
  * limitations under the License.
  */
 
-// Override all defines if IO_CONFIG_OVERRIDE is defined
-#ifdef IO_CONFIG_OVERRIDE
-#include "IO_Config_Override.h"
-#ifndef __IO_CONFIG_H__
-#define __IO_CONFIG_H__
-#endif
-#endif
-
 #ifndef __IO_CONFIG_H__
 #define __IO_CONFIG_H__
 
@@ -36,13 +28,15 @@
 
 COMPILER_ASSERT(DAPLINK_HIC_ID == DAPLINK_HIC_ID_STM32F103XB);
 
+#define MUSELAB_NANODAP
+
 //USB control pin
-#define USB_CONNECT_PORT_ENABLE()    __HAL_RCC_GPIOA_CLK_ENABLE()
-#define USB_CONNECT_PORT_DISABLE()   __HAL_RCC_GPIOA_CLK_DISABLE()
-#define USB_CONNECT_PORT             GPIOA
+#define USB_CONNECT_PORT_ENABLE()    __HAL_RCC_GPIOB_CLK_ENABLE()
+#define USB_CONNECT_PORT_DISABLE()   __HAL_RCC_GPIOB_CLK_DISABLE()
+#define USB_CONNECT_PORT             GPIOB
 #define USB_CONNECT_PIN              GPIO_PIN_15
-#define USB_CONNECT_ON()             (USB_CONNECT_PORT->BSRR = USB_CONNECT_PIN)
-#define USB_CONNECT_OFF()            (USB_CONNECT_PORT->BRR  = USB_CONNECT_PIN)
+#define USB_CONNECT_ON()             (USB_CONNECT_PORT->BRR  = USB_CONNECT_PIN)
+#define USB_CONNECT_OFF()            (USB_CONNECT_PORT->BSRR = USB_CONNECT_PIN)
 
 //Connected LED
 #define CONNECTED_LED_PORT           GPIOB
@@ -51,8 +45,8 @@ COMPILER_ASSERT(DAPLINK_HIC_ID == DAPLINK_HIC_ID_STM32F103XB);
 
 //When bootloader, disable the target port(not used)
 #define POWER_EN_PIN_PORT            GPIOB
-#define POWER_EN_PIN                 GPIO_PIN_15
-#define POWER_EN_Bit                 15
+#define POWER_EN_PIN                 GPIO_PIN_8
+#define POWER_EN_Bit                 8
 
 // nRESET OUT Pin
 #define nRESET_PIN_PORT              GPIOB

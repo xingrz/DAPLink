@@ -1,0 +1,12 @@
+common:
+    macros:
+        - IO_CONFIG_OVERRIDE
+        - USB_PROD_STR=MuseLab nanoDAP CMSIS-DAP
+        - CDC_ACM_DEFAULT_BAUDRATE=115200
+    includes:
+        - source/board/override_muselab_nanodap
+    sources:
+        board:
+            - source/board/muselab_nanodap.c
+        family:
+            - source/family/st/stm32f103rb/target.c
