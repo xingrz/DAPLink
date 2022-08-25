@@ -463,9 +463,17 @@ It is recommended to provide the following LEDs for status indication:
 __STATIC_INLINE void LED_CONNECTED_OUT(uint32_t bit)
 {
     if (bit & 1)
+#ifdef MUSELAB_NANODAP
+        CONNECTED_LED_PORT->BSRR = CONNECTED_LED_PIN;// LED on
+#else
         CONNECTED_LED_PORT->BRR = CONNECTED_LED_PIN; // LED on
+#endif
     else
+#ifdef MUSELAB_NANODAP
+        CONNECTED_LED_PORT->BRR = CONNECTED_LED_PIN; // LED off
+#else
         CONNECTED_LED_PORT->BSRR = CONNECTED_LED_PIN;// LED off
+#endif
 }
 
 /** Debug Unit: Set status Target Running LED.
