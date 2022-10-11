@@ -126,12 +126,16 @@ void gpio_init(void)
     // Note - SWD is still enabled
     __HAL_AFIO_REMAP_SWJ_NOJTAG();
 
+#ifdef USB_CONNECT_PORT
     USB_CONNECT_PORT_ENABLE();
+#endif
     USB_CONNECT_OFF();
+#ifdef USB_CONNECT_PORT
     GPIO_InitStructure.Pin = USB_CONNECT_PIN;
     GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
     HAL_GPIO_Init(USB_CONNECT_PORT, &GPIO_InitStructure);
+#endif
     // configure LEDs
     HAL_GPIO_WritePin(RUNNING_LED_PORT, RUNNING_LED_PIN, GPIO_PIN_SET);
     GPIO_InitStructure.Pin = RUNNING_LED_PIN;
